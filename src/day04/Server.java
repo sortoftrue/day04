@@ -19,6 +19,7 @@ public class Server {
 
         while(isExit != true){
             System.out.println("Wait read");
+            
             //READ-IN
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             String input = ois.readUTF();
@@ -31,9 +32,14 @@ public class Server {
                     break;
                 }
                 default:{
-                    String[] splitString = input.split(" ");
-                    Double result = Calculator.calc(Integer.parseInt(splitString[0]), Integer.parseInt(splitString[2]), splitString[1]); 
-                    answer = result.toString();
+                    try{
+                        String[] splitString = input.split(" ");
+                        Double result = Calculator.calc(Double.parseDouble(splitString[0]), Double.parseDouble(splitString[2]), splitString[1]); 
+                        answer = result.toString(); 
+                    } catch (Exception e){
+                        answer = "Invalid Entry!";
+                    }
+                
                 }
             }
             
